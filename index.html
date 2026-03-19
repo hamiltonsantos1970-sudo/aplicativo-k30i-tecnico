@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="K30i Pro">
     <title>K30i - Interface Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -28,49 +25,32 @@
         .foto { width: 40px; height: 40px; border-radius: 50%; background: #1a7a35; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; }
         .status-online { color: var(--status-cor); font-size: 10px; font-weight: bold; }
 
-        /* DRAWER (GAVETA DE ATALHOS) */
-        #drawer { position: fixed; top: 60px; left: 0; width: 100%; background: var(--topo); z-index: 900; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-bottom: 1px solid var(--borda); transform: translateY(0); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* DRAWER (GAVETA) */
+        #drawer { position: fixed; top: 60px; left: 0; width: 100%; background: var(--topo); z-index: 900; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-bottom: 1px solid var(--borda); transform: translateY(0); }
         #drawer.recolhido { transform: translateY(-100%); }
         .grid-atalhos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; }
-        .card { background: var(--balao-ele); padding: 12px; border-radius: 10px; text-align: center; color: var(--texto); font-size: 11px; border: 1.5px solid var(--borda); font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .card:active { transform: scale(0.95); background: var(--borda); }
+        
+        /* Ajuste no CARD para caber o texto "Reset de falha" */
+        .card { background: var(--balao-ele); padding: 10px 5px; border-radius: 10px; text-align: center; color: var(--texto); font-size: 10px; border: 1.5px solid var(--borda); font-weight: bold; cursor: pointer; text-transform: uppercase; }
         .card i { display: block; font-size: 18px; margin-bottom: 5px; color: var(--accent); }
+        
         .alca { position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); height: 24px; width: 50px; background: var(--topo); border-radius: 0 0 12px 12px; display: flex; justify-content: center; align-items: center; border: 1px solid var(--borda); border-top: none; cursor: pointer; }
 
         /* CHAT */
         #chat { flex: 1; padding: 20px 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-        .msg { 
-            max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 15px; color: var(--texto); 
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1); position: relative; line-height: 1.4; white-space: pre-wrap;
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
+        .msg { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 15px; color: var(--texto); box-shadow: 0 1px 1px rgba(0,0,0,0.1); position: relative; line-height: 1.4; animation: popIn 0.3s ease; }
         .eu { align-self: flex-end; background: var(--balao-eu); border-top-right-radius: 0; }
         .ele { align-self: flex-start; background: var(--balao-ele); border-top-left-radius: 0; }
         .tempo { font-size: 10px; color: var(--subtitulo); text-align: right; margin-top: 4px; display: block; }
-        
-        /* Estilos de conteúdo técnico */
-        .tag-alerta { background: #fff3cd; color: #856404; padding: 5px; border-radius: 4px; border-left: 4px solid #ffeeba; margin: 5px 0; font-size: 13px; }
-        .btn-inline { background: #e9edef; border: 1px solid #ced4da; padding: 6px 12px; border-radius: 15px; font-size: 13px; margin: 5px 5px 0 0; display: inline-block; cursor: pointer; color: #111b21; font-weight: 500; }
-        body.dark-mode .btn-inline { background: #374045; color: #e9edef; border-color: #4a555a; }
 
-        /* RODAPÉ E MICROFONE */
-        footer { padding: 10px; display: flex; align-items: center; gap: 8px; background: transparent; flex-shrink: 0; }
-        .input-falso { flex: 1; background: var(--topo); border-radius: 25px; padding: 12px 18px; color: var(--subtitulo); font-size: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        
-        .gravando-texto { color: var(--danger) !important; font-weight: bold; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.5; } }
+        /* FOOTER */
+        footer { padding: 10px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .input-falso { flex: 1; background: var(--topo); border-radius: 25px; padding: 12px 18px; color: var(--subtitulo); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .btn-mic { width: 52px; height: 52px; border-radius: 50%; border: none; background: #25a244; color: white; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .listening { animation: pulse 1.5s infinite; background: var(--danger) !important; }
 
-        .btn-mic { width: 52px; height: 52px; border-radius: 50%; border: none; background: #25a244; color: white; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .listening { animation: pulse 1.5s infinite; background: var(--danger) !important; transform: scale(1.1); }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 59, 48, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
-        }
+        @keyframes popIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 59, 48, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); } }
     </style>
 </head>
 <body>
@@ -88,10 +68,13 @@
 
     <div id="drawer">
         <div class="grid-atalhos">
-            <div class="card" onclick="processarComando('FALHA ATIVA')"><i class="fa-solid fa-bug"></i>FALHA</div>
+            <div class="card" onclick="processarComando('RESET')">
+                <i class="fa-solid fa-rotate"></i>Reset de falha
+            </div>
+            
             <div class="card" onclick="processarComando('AVISO ATIVO')"><i class="fa-solid fa-triangle-exclamation"></i>AVISO</div>
-            <div class="card" onclick="processarComando('GUIA INSTALAÇÃO')"><i class="fa-solid fa-book"></i>MANUAL</div>
-            <div class="card" onclick="processarComando('RESET GERAL')"><i class="fa-solid fa-rotate"></i>RESET</div>
+            <div class="card" onclick="processarComando('PROGRAMAÇÃO')"><i class="fa-solid fa-gear"></i>PROG.</div>
+            <div class="card" onclick="processarComando('LEDS PAINEL')"><i class="fa-solid fa-lightbulb"></i>LEDS</div>
         </div>
         <div class="alca" onclick="toggleGaveta()"><i id="seta-gaveta" class="fa-solid fa-chevron-up"></i></div>
     </div>
@@ -100,26 +83,48 @@
 
     <footer>
         <div class="input-falso">
-            <span id="label-status">Segure para falar</span>
+            <span id="label-status">Mensagem</span>
             <i class="fa-solid fa-paperclip" style="transform: rotate(-45deg);"></i>
         </div>
-        <button class="btn-mic" id="btn-voz">
-            <i class="fa-solid fa-microphone"></i>
-        </button>
+        <button class="btn-mic" id="btn-voz"><i class="fa-solid fa-microphone"></i></button>
     </footer>
 
     <script>
-        // --- BANCO DE DADOS TÉCNICO (MIGRAÇÃO DO CÉREBRO) ---
-        const RESPOSTAS = {
-            "falha ativa": "⚠️ **FALHA ATIVA**\n\n1. Verifique os LEDs de erro.\n2. Consulte o código no display.\n\nDeseja ver as **Causas** ou como **Resetar**?",
-            "aviso ativo": "🔔 **AVISO ATIVO**\n\nIdentifiquei um alerta de manutenção preventiva. Verifique o nível de óleo ou filtros.",
-            "reset": "🔄 **PROCEDIMENTO DE RESET**\n\n1. Pressione 'ESC' por 3 segundos.\n2. Desligue a chave geral por 10s.\n3. Religue o sistema.",
-            "guia": "📚 **MANUAL DE INSTALAÇÃO**\n\nO K30i deve ser fixado em trilho DIN. Verifique o aperto dos bornes 1 a 12.",
-            "e01": "❌ **ERRO E01: SOBRECARGA**\n\nCausa: Motor travado ou corrente alta.\nSolução: Verifique a carga e o ajuste térmico.",
-            "e02": "❌ **ERRO E02: SUBTENSÃO**\n\nVerifique a alimentação de entrada. Tensão abaixo de 180V."
+        // BANCO DE DADOS (Simulando o cérebro do index(4))
+        const BANCO = {
+            "reset": "🔄 **PROCEDIMENTO DE RESET DE FALHA**\n\n1. Verifique se a causa da falha foi sanada.\n2. Pressione a tecla **ESC** por 3 segundos.\n3. Se a falha persistir, desligue a alimentação por 10 segundos.\n4. Religue e tente novamente.",
+            "aviso ativo": "🔔 **AVISO ATIVO**\nSistema operando em modo de alerta. Verifique os níveis de manutenção preventiva.",
+            "programação": "⚙️ **MENU DE PROGRAMAÇÃO**\nPara acessar, mantenha 'ENTER' pressionado e use as setas para navegar nos parâmetros P01 a P99.",
+            "leds painel": "💡 **SIGNIFICADO DOS LEDS**\n🟢 Verde: Normal\n🟡 Amarelo: Atenção\n🔴 Vermelho: Falha Crítica"
         };
 
-        // --- FUNÇÕES DE INTERFACE ---
+        function adicionarMensagem(texto, tipo) {
+            const chat = document.getElementById('chat');
+            const div = document.createElement('div');
+            div.className = `msg ${tipo}`;
+            div.innerHTML = texto.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') + 
+                            `<span class="tempo">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function processarComando(txt) {
+            if(!txt) return;
+            adicionarMensagem(txt, 'eu');
+            setTimeout(() => {
+                const busca = txt.toLowerCase();
+                let r = "Desculpe, não entendi. Tente usar o botão 'Reset de falha'.";
+                
+                for (let chave in BANCO) {
+                    if (busca.includes(chave)) {
+                        r = BANCO[chave];
+                        break;
+                    }
+                }
+                adicionarMensagem(r, 'ele');
+            }, 600);
+        }
+
         function toggleGaveta() {
             const d = document.getElementById('drawer');
             const s = document.getElementById('seta-gaveta');
@@ -133,32 +138,10 @@
             btn.className = document.body.classList.contains('dark-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        function adicionarMensagem(texto, tipo) {
-            const chat = document.getElementById('chat');
-            const agora = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            const check = tipo === 'eu' ? ' <i class="fa-solid fa-check-double" style="color:#53bdeb; font-size:12px"></i>' : '';
-            
-            const div = document.createElement('div');
-            div.className = `msg ${tipo}`;
-            
-            // Converte Markdown simples para HTML
-            let htmlFormatado = texto.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
-            
-            div.innerHTML = `${htmlFormatado}<span class="tempo">${agora}${check}</span>`;
-            
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-        }
-
-        // --- LÓGICA DO MICROFONE ---
-        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (Recognition) {
-            const rec = new Recognition();
-            rec.lang = 'pt-BR';
-            rec.continuous = false;
-            const btn = document.getElementById('btn-voz');
-            const label = document.getElementById('label-status');
-
-            const iniciarGravacao = (e) => {
-                e.preventDefault();
-                try { rec.start
+        window.onload = () => {
+            adicionarMensagem("Olá! Como posso ajudar com o suporte do K30i hoje?", 'ele');
+            setTimeout(toggleGaveta, 1000);
+        };
+    </script>
+</body>
+</html>
